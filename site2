@@ -334,7 +334,7 @@
                 <h3>Debut Novel - Out Now</h3>
                 <div class="book-display">
                     <div class="book-cover">
-                        <img src="/"images/Shadows.jpg" alt="Shadows of the Green">
+                        <img src="/"images/Shadows.jpg" alt="images/Shadows.jpg">
                     </div>
                     <div class="book-info">
                         <h3>Shadows of the Green</h3>
