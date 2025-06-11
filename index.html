@@ -227,14 +227,17 @@
         .author-image {
             width: 300px;
             height: 300px;
-            background: linear-gradient(135deg, var(--accent-green), var(--accent-light));
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
+            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: float 6s ease-in-out infinite;
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
         }
 
         @keyframes float {
@@ -256,6 +259,7 @@
             display: flex;
             gap: 2rem;
             margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -313,7 +317,7 @@
         }
 
         .book-cover {
-            height: 300px;
+            height: 400px;
             background: linear-gradient(135deg, var(--accent-green), var(--primary-dark));
             display: flex;
             align-items: center;
@@ -326,7 +330,14 @@
             overflow: hidden;
         }
 
-        .book-cover::after {
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .book-cover.placeholder::after {
             content: '';
             position: absolute;
             top: -50%;
@@ -392,6 +403,16 @@
             border-top: 1px solid #333;
         }
 
+        .footer-email {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: var(--text-primary);
+        }
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -421,6 +442,10 @@
 
             .section-title {
                 font-size: 2rem;
+            }
+
+            .social-links {
+                justify-content: center;
             }
         }
 
@@ -463,7 +488,9 @@
     <!-- About Section -->
     <section id="about" class="about">
         <div class="about-container fade-in">
-            <div class="author-image"> <img src="images/Snapchat-1991114947.jpg</div>
+            <div class="author-image">
+                <img src="images/Snapchat-1991114947.jpg" alt="Alex Golder-Wood">
+            </div>
             <div class="bio-text">
                 <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">About the Author</h2>
                 <p>Alex Golder-Wood is a writer who currently resides in Derbyshire.</p>
@@ -475,6 +502,9 @@
                     </a>
                     <a href="https://www.instagram.com/alexgwauthor" target="_blank">
                         <span>📷</span> Instagram: @alexgwauthor
+                    </a>
+                    <a href="mailto:alexgwauthor@gmail.com">
+                        <span>✉️</span> alexgwauthor@gmail.com
                     </a>
                 </div>
             </div>
@@ -488,7 +518,7 @@
             <!-- Shadows of the Green -->
             <div class="book-card fade-in">
                 <div class="book-cover">
-                    <div>SHADOWS<br>OF THE<br>GREEN</div>
+                    <img src="images/Shadows.jpg" alt="Shadows of the Green book cover">
                 </div>
                 <div class="book-info">
                     <h3 class="book-title">Shadows of the Green</h3>
@@ -504,7 +534,7 @@
 
             <!-- False Alarm -->
             <div class="book-card fade-in">
-                <div class="book-cover">
+                <div class="book-cover placeholder">
                     <div>FALSE<br>ALARM</div>
                 </div>
                 <div class="book-info">
@@ -524,6 +554,9 @@
     <!-- Footer -->
     <footer id="contact">
         <p>&copy; 2025 Alex Golder-Wood. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
+            <a href="mailto:alexgwauthor@gmail.com" class="footer-email">alexgwauthor@gmail.com</a>
+        </p>
         <p style="margin-top: 1rem; color: var(--text-secondary);">Website by alexgwauthor.com</p>
     </footer>
 
