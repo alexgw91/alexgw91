@@ -34,6 +34,15 @@
             scroll-behavior: smooth;
         }
 
+        /* Page container for switching views */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
         /* Navigation */
         nav {
             position: fixed;
@@ -67,6 +76,7 @@
             color: transparent;
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -81,6 +91,7 @@
             transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 0;
+            cursor: pointer;
         }
 
         .nav-links a::after {
@@ -94,11 +105,13 @@
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--text-primary);
         }
 
@@ -168,6 +181,7 @@
             box-shadow: 0 4px 15px rgba(74, 124, 46, 0.4);
             font-size: 1.1rem;
             letter-spacing: 1px;
+            cursor: pointer;
         }
 
         .cta-button:hover {
@@ -226,14 +240,15 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             animation: float 6s ease-in-out infinite;
+            margin: 0 auto;
         }
 
         .author-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center top;
-            transform: translateY(-20px) translateX(-10px);
+            object-position: center 20%;
+            transform: scale(1.2);
         }
 
         @keyframes float {
@@ -335,6 +350,7 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .book-cover img {
@@ -402,6 +418,117 @@
             color: var(--text-primary);
         }
 
+        /* Individual Book Pages */
+        .book-page {
+            padding-top: 8rem;
+            min-height: 100vh;
+        }
+
+        .book-detail {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .book-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .book-detail-cover {
+            text-align: center;
+        }
+
+        .book-detail-cover img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .book-detail-info h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .book-detail-info .status {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--accent-green);
+            border-radius: 25px;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .book-detail-info .status.upcoming {
+            background: #444;
+        }
+
+        .book-detail-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .book-detail-description p {
+            margin-bottom: 1.5rem;
+        }
+
+        .book-detail-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .book-detail-link {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent-light);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .book-detail-link:hover {
+            background: #5a8c3e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 124, 46, 0.4);
+        }
+
+        .book-detail-link.disabled {
+            background: #444;
+            cursor: not-allowed;
+        }
+
+        .book-detail-link.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--secondary-dark);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: var(--accent-green);
+            transform: translateY(-2px);
+        }
+
         /* Footer */
         footer {
             background: var(--primary-dark);
@@ -439,8 +566,13 @@
                 text-align: center;
             }
 
-            .author-image {
-                margin: 0 auto;
+            .book-detail-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .book-detail-info h1 {
+                font-size: 2.5rem;
             }
 
             .books-grid {
@@ -459,6 +591,10 @@
             .social-links a {
                 font-size: 1.2rem;
                 padding: 0.8rem 1.2rem;
+            }
+
+            .book-detail-links {
+                justify-content: center;
             }
         }
 
@@ -479,101 +615,203 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo"></a>
+            <a href="#" class="logo" onclick="showPage('main')"></a>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#books">Books</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" onclick="showPage('main')" class="nav-link active">Home</a></li>
+                <li><a href="#" onclick="showPage('main'); setTimeout(() => scrollToSection('about'), 100)" class="nav-link">About</a></li>
+                <li><a href="#" onclick="showPage('main'); setTimeout(() => scrollToSection('books'), 100)" class="nav-link">Books</a></li>
+                <li><a href="#" onclick="showPage('main'); setTimeout(() => scrollToSection('contact'), 100)" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>ALEX GOLDER-WOOD</h1>
-            <p class="subtitle">Author of Psychological Thrillers</p>
-            <a href="#books" class="cta-button">Explore My Books</a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="about-container fade-in">
-            <div class="author-image">
-                <img src="Pic1.JPG" alt="Alex Golder-Wood">
+    <!-- Main Page -->
+    <div id="main-page" class="page active">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>ALEX GOLDER-WOOD</h1>
+                <p class="subtitle">Author of Psychological Thrillers</p>
+                <a href="#" class="cta-button" onclick="scrollToSection('books')">Explore My Books</a>
             </div>
-            <div class="bio-text">
-                <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">About the Author</h2>
-                <p>Alex Golder-Wood is a writer who currently resides in Derbyshire.</p>
-                <p>After many years of crafting the story, he released his debut novel 'Shadows of the Green' in 2025, a powerful psychological drama that explores mental health, trauma, and redemption.</p>
-                <p>When he's not working on 10 books at a time (finishing none) or abusing the Oxford comma, you can find Alex on:</p>
-                <div class="social-links">
-                    <a href="https://www.tiktok.com/@alexgwauthor" target="_blank">
-                        <span class="emoji">📱</span> TikTok: @alexgwauthor
-                    </a>
-                    <a href="https://www.instagram.com/alexgwauthor" target="_blank">
-                        <span class="emoji">📷</span> Instagram: @alexgwauthor
-                    </a>
-                    <a href="mailto:alexgwauthor@gmail.com">
-                        <span class="emoji">✉️</span> alexgwauthor@gmail.com
-                    </a>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="about-container fade-in">
+                <div class="author-image">
+                    <img src="Pic1.JPG" alt="Alex Golder-Wood">
+                </div>
+                <div class="bio-text">
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">About the Author</h2>
+                    <p>Alex Golder-Wood is a writer who currently resides in Derbyshire.</p>
+                    <p>After many years of crafting the story, he released his debut novel 'Shadows of the Green' in 2025, a powerful psychological drama that explores mental health, trauma, and redemption.</p>
+                    <p>When he's not working on 10 books at a time (finishing none) or abusing the Oxford comma, you can find Alex on:</p>
+                    <div class="social-links">
+                        <a href="https://www.tiktok.com/@alexgwauthor" target="_blank">
+                            <span class="emoji">📱</span> TikTok: @alexgwauthor
+                        </a>
+                        <a href="https://www.instagram.com/alexgwauthor" target="_blank">
+                            <span class="emoji">📷</span> Instagram: @alexgwauthor
+                        </a>
+                        <a href="mailto:alexgwauthor@gmail.com">
+                            <span class="emoji">✉️</span> alexgwauthor@gmail.com
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Books Section -->
-    <section id="books" class="books">
-        <h2 class="section-title fade-in">My Books</h2>
-        <div class="books-grid">
-            <!-- Shadows of the Green -->
-            <div class="book-card fade-in">
-                <div class="book-cover">
+        <!-- Books Section -->
+        <section id="books" class="books">
+            <h2 class="section-title fade-in">My Books</h2>
+            <div class="books-grid">
+                <!-- Shadows of the Green -->
+                <div class="book-card fade-in">
+                    <div class="book-cover" onclick="window.open('https://amzn.eu/d/iC7nUb1', '_blank')">
+                        <img src="images/Shadows.jpg" alt="Shadows of the Green book cover">
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">Shadows of the Green</h3>
+                        <span class="book-status">Available Now</span>
+                        <p class="book-description">
+                            One phone call. A desperate mother. A friend gone missing.<br><br>
+                            Jay thought he'd escaped The Green, the rough estate that shaped his childhood. Now, trapped in a dead end marriage and a life he barely recognises, he's dragged back when his old friend, George, disappears.<br><br>
+                            For fans of Shuggie Bain and Trainspotting, Shadows of the Green is a raw, unflinching exploration of Male Friendship, unspoken pain, and the courage it takes to break generational cycles.
+                        </p>
+                        <a href="https://amzn.eu/d/iC7nUb1" target="_blank" class="book-link">Get it on Amazon →</a>
+                        <br><br>
+                        <a href="#" onclick="showPage('shadows')" class="book-link">Read More →</a>
+                    </div>
+                </div>
+
+                <!-- False Alarm -->
+                <div class="book-card fade-in">
+                    <div class="book-cover" onclick="window.open('https://amzn.eu/d/5NecVOW', '_blank')">
+                        <img src="images/Alex Golder-Wood ebook.jpg" alt="False Alarm book cover">
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">False Alarm</h3>
+                        <span class="book-status">Available Now</span>
+                        <p class="book-description">
+                            Some dangers hide in plain sight.<br><br>
+                            When single father James Porter meets Melissa during a fire drill, he finally sees a chance of happiness after years of grief. But his best friend Rachel has reservations...<br><br>
+                            For fans of Lisa Jewell, Shari Lapena and Ruth Ware, False Alarm is a heart-stopping psychological thriller with an explosive ending.
+                        </p>
+                        <a href="https://amzn.eu/d/5NecVOW" target="_blank" class="book-link">Get it on Amazon →</a>
+                        <br><br>
+                        <a href="#" onclick="showPage('false-alarm')" class="book-link">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <p>&copy; 2025 Alex Golder-Wood. All rights reserved.</p>
+            <p style="margin-top: 1rem;">
+                <a href="mailto:alexgwauthor@gmail.com" class="footer-email">alexgwauthor@gmail.com</a>
+            </p>
+            <p style="margin-top: 1rem; color: var(--text-secondary);">Website by alexgwauthor.com</p>
+        </footer>
+    </div>
+
+    <!-- Shadows of the Green Book Page -->
+    <div id="shadows-page" class="page book-page">
+        <div class="book-detail">
+            <a href="#" class="back-button" onclick="showPage('main')">← Back to Books</a>
+            
+            <div class="book-detail-grid">
+                <div class="book-detail-cover">
                     <img src="images/Shadows.jpg" alt="Shadows of the Green book cover">
                 </div>
-                <div class="book-info">
-                    <h3 class="book-title">Shadows of the Green</h3>
-                    <span class="book-status">Available Now</span>
-                    <p class="book-description">
-                        One phone call. A desperate mother. A friend gone missing.<br><br>
-                        Jay thought he'd escaped The Green, the rough estate that shaped his childhood. Now, trapped in a dead end marriage and a life he barely recognises, he's dragged back when his old friend, George, disappears.<br><br>
-                        For fans of Shuggie Bain and Trainspotting, Shadows of the Green is a raw, unflinching exploration of Male Friendship, unspoken pain, and the courage it takes to break generational cycles.
-                    </p>
-                    <a href="https://amzn.eu/d/iC7nUb1" target="_blank" class="book-link">Get it on Amazon →</a>
-                </div>
-            </div>
-
-            <!-- False Alarm -->
-            <div class="book-card fade-in">
-                <div class="book-cover placeholder">
-                    <div>FALSE<br>ALARM</div>
-                </div>
-                <div class="book-info">
-                    <h3 class="book-title">False Alarm</h3>
-                    <span class="book-status upcoming">Coming Soon</span>
-                    <p class="book-description">
-                        Some dangers hide in plain sight.<br><br>
-                        When single father James Porter meets Melissa during a fire drill, he finally sees a chance of happiness after years of grief. But his best friend Rachel has reservations...<br><br>
-                        For fans of Lisa Jewell, Shari Lapena and Ruth Ware, False Alarm is a heart-stopping psychological thriller with an explosive ending.
-                    </p>
-                    <span class="book-link">Stay tuned for release</span>
+                <div class="book-detail-info">
+                    <h1>Shadows of the Green</h1>
+                    <span class="status">Available Now</span>
+                    <div class="book-detail-description">
+                        <p><strong>One phone call. A desperate mother. A friend gone missing.</strong></p>
+                        <p>Jay thought he'd escaped The Green, the rough estate that shaped his childhood. Now, trapped in a dead-end marriage and a life he barely recognises, he's dragged back when his old friend, George, disappears.</p>
+                        <p>As Jay delves deeper into George's disappearance, he's forced to confront the ghosts of his past and the toxic masculinity that defined his youth. In a world where men don't talk about their feelings, Jay must learn to break the silence before it's too late.</p>
+                        <p>For fans of Shuggie Bain and Trainspotting, <em>Shadows of the Green</em> is a raw, unflinching exploration of male friendship, unspoken pain, and the courage it takes to break generational cycles.</p>
+                        <p><strong>Add your detailed description here...</strong></p>
+                    </div>
+                    <div class="book-detail-links">
+                        <a href="https://amzn.eu/d/iC7nUb1" target="_blank" class="book-detail-link">Buy on Amazon</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <p>&copy; 2025 Alex Golder-Wood. All rights reserved.</p>
-        <p style="margin-top: 1rem;">
-            <a href="mailto:alexgwauthor@gmail.com" class="footer-email">alexgwauthor@gmail.com</a>
-        </p>
-        <p style="margin-top: 1rem; color: var(--text-secondary);">Website by alexgwauthor.com</p>
-    </footer>
+    <!-- False Alarm Book Page -->
+    <div id="false-alarm-page" class="page book-page">
+        <div class="book-detail">
+            <a href="#" class="back-button" onclick="showPage('main')">← Back to Books</a>
+            
+            <div class="book-detail-grid">
+                <div class="book-detail-cover">
+                    <img src="images/Alex Golder-Wood ebook.jpg" alt="False Alarm book cover">
+                </div>
+                <div class="book-detail-info">
+                    <h1>False Alarm</h1>
+                    <span class="status">Available Now</span>
+                    <div class="book-detail-description">
+                        <p><strong>Some dangers hide in plain sight.</strong></p>
+                        <p>When single father James Porter meets Melissa during a fire drill, he finally sees a chance of happiness after years of grief. But his best friend Rachel has reservations about his new romance.</p>
+                        <p>As James falls deeper under Melissa's spell, Rachel's concerns grow stronger. Something doesn't add up about this perfect woman who appeared just when James needed her most.</p>
+                        <p>In a deadly game of cat and mouse, James must decide who to trust before it's too late. Because some alarms aren't false; they're warnings.</p>
+                        <p>For fans of Lisa Jewell, Shari Lapena and Ruth Ware, <em>False Alarm</em> is a heart-stopping psychological thriller with an explosive ending that will leave you questioning everything you thought you knew.</p>
+                        <p><strong>Add description here...</strong></p>
+                    </div>
+                    <div class="book-detail-links">
+                        <a href="https://amzn.eu/d/5NecVOW" target="_blank" class="book-detail-link">Buy on Amazon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            if (pageId === 'main') {
+                document.getElementById('main-page').classList.add('active');
+            } else if (pageId === 'shadows') {
+                document.getElementById('shadows-page').classList.add('active');
+            } else if (pageId === 'false-alarm') {
+                document.getElementById('false-alarm-page').classList.add('active');
+            }
+            
+            // Update navigation active state
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            if (pageId === 'main') {
+                document.querySelector('.nav-link').classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Scroll to section (for main page navigation)
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
@@ -582,20 +820,6 @@
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
         });
 
         // Fade in animation on scroll
@@ -620,7 +844,9 @@
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
         });
     </script>
 </body>
