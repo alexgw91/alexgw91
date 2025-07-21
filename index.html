@@ -394,11 +394,147 @@
             box-shadow: 0 5px 20px rgba(74, 124, 46, 0.3);
         }
 
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 5rem 3rem;
+            background: var(--primary-dark);
+            text-align: center;
+        }
+
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .newsletter-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .newsletter-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Custom Mailchimp Form Styling */
+        #mc_embed_signup {
+            background: transparent !important;
+            clear: left;
+            font: inherit !important;
+            width: 100% !important;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        #mc_embed_signup form {
+            padding: 0 !important;
+        }
+
+        #mc_embed_signup h2 {
+            display: none; /* Hide default title */
+        }
+
+        #mc_embed_signup .indicates-required {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        #mc_embed_signup .asterisk {
+            color: var(--accent-light);
+        }
+
+        #mc_embed_signup .mc-field-group {
+            padding-bottom: 2rem !important;
+            width: 100% !important;
+        }
+
+        #mc_embed_signup .mc-field-group label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #mc_embed_signup input[type="email"] {
+            width: 100% !important;
+            padding: 1rem 1.5rem !important;
+            font-size: 1.1rem !important;
+            background: var(--secondary-dark) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: var(--border-radius) !important;
+            color: var(--text-primary) !important;
+            font-family: inherit !important;
+            transition: var(--transition) !important;
+            margin: 0 !important;
+        }
+
+        #mc_embed_signup input[type="email"]:focus {
+            outline: none !important;
+            border-color: var(--accent-light) !important;
+            box-shadow: 0 0 0 3px rgba(74, 124, 46, 0.2) !important;
+        }
+
+        #mc_embed_signup input[type="email"]::placeholder {
+            color: var(--text-secondary);
+        }
+
+        #mc_embed_signup .button {
+            background: var(--accent-green) !important;
+            color: var(--text-primary) !important;
+            border: none !important;
+            padding: 1rem 3rem !important;
+            font-size: 1rem !important;
+            font-weight: 600 !important;
+            border-radius: 30px !important;
+            cursor: pointer !important;
+            transition: var(--transition) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px !important;
+            font-family: inherit !important;
+            margin-top: 1rem !important;
+        }
+
+        #mc_embed_signup .button:hover {
+            background: var(--accent-light) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 5px 20px rgba(74, 124, 46, 0.4) !important;
+        }
+
+        #mc_embed_signup .clear {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Hide the Mailchimp branding */
+        #mc_embed_signup .optionalParent p {
+            display: none !important;
+        }
+
+        /* Success/Error Messages */
+        #mc_embed_signup .response {
+            background: var(--secondary-dark);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent-light);
+        }
+
         /* Contact Section */
         .contact-section {
             padding: 5rem 3rem;
             text-align: center;
-            background: var(--primary-dark);
+            background: var(--secondary-dark);
         }
 
         .contact-content {
@@ -498,6 +634,14 @@
                 font-size: 0.9rem;
                 padding: 0.8rem 1.5rem;
             }
+
+            .newsletter-title {
+                font-size: 2rem;
+            }
+
+            .newsletter-description {
+                font-size: 1.1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -516,6 +660,11 @@
 
             .contact-email {
                 font-size: 1.1rem;
+            }
+
+            .newsletter-title {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
             }
         }
 
@@ -583,6 +732,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#books" class="nav-link active">Books</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#newsletter" class="nav-link">Newsletter</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -673,6 +823,42 @@
                         <a href="mailto:alexgwauthor@gmail.com" class="social-link">
                             <span>✉️</span> Email
                         </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section id="newsletter" class="newsletter-section">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Stay in the Shadows</h2>
+                <p class="newsletter-description">
+                    Be the first to know about new releases, exclusive content, and behind-the-scenes insights into the dark psychological thrillers that await.
+                </p>
+                
+                <div id="mc_embed_shell">
+                    <div id="mc_embed_signup">
+                        <form action="https://alexgwauthor.us22.list-manage.com/subscribe/post?u=061296813c7ce47bf8348aa83&amp;id=2b4998d4b0&amp;f_id=004ec2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                            <div id="mc_embed_signup_scroll">
+                                <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                                <div class="mc-field-group">
+                                    <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+                                    <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value="" placeholder="Enter your email address">
+                                </div>
+                                <div id="mce-responses" class="clear foot">
+                                    <div class="response" id="mce-error-response" style="display: none;"></div>
+                                    <div class="response" id="mce-success-response" style="display: none;"></div>
+                                </div>
+                                <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                                    <input type="text" name="b_061296813c7ce47bf8348aa83_2b4998d4b0" tabindex="-1" value="">
+                                </div>
+                                <div class="optionalParent">
+                                    <div class="clear foot">
+                                        <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -811,6 +997,23 @@
             el.style.transition = 'all 0.8s ease';
             observer.observe(el);
         });
+    </script>
+
+    <!-- Mailchimp validation script -->
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+    <script type="text/javascript">
+        (function($) {
+            window.fnames = new Array(); 
+            window.ftypes = new Array();
+            fnames[0]='EMAIL';ftypes[0]='email';
+            fnames[1]='FNAME';ftypes[1]='text';
+            fnames[2]='LNAME';ftypes[2]='text';
+            fnames[3]='ADDRESS';ftypes[3]='address';
+            fnames[4]='PHONE';ftypes[4]='phone';
+            fnames[5]='BIRTHDAY';ftypes[5]='birthday';
+            fnames[6]='COMPANY';ftypes[6]='text';
+        }(jQuery));
+        var $mcj = jQuery.noConflict(true);
     </script>
 </body>
 </html>
